@@ -1,4 +1,3 @@
-Attribute VB_Name = "Module1"
 Sub stock_results()
     
     'create loop to add headers to each sheet
@@ -101,22 +100,22 @@ Sub stock_results()
           
     End If
          
+    Next i
+    
         'convert yearly change column to show two decimal places and $
         ws.Range("K" & Summary_Table_Row).NumberFormat = "$0.00"
         
         'convert percent change column to show two decimal places and %
         ws.Range("L" & Summary_Table_Row).NumberFormat = "0.00%"
         
-        ws.Range("R2") = Increase
-        ws.Range("R3") = Decrease
-        ws.Range("R4") = GTVolume
-        
-        
         'set figures for Max Percentage, Min Percentage and Max Volume
         Increase = WorksheetFunction.Max(ws.Range("L:L"))
         Decrease = WorksheetFunction.Min(ws.Range("L:L"))
         GTVolume = WorksheetFunction.Max(ws.Range("M:M"))
         
+        ws.Range("R2") = Increase
+        ws.Range("R3") = Decrease
+        ws.Range("R4") = GTVolume
         
         'Set formatting to show two decimal places and %
         ws.Range("R2:R3").NumberFormat = "0.00%"
@@ -136,8 +135,8 @@ Sub stock_results()
         ws.Range("Q4").Value = ws.Cells(i, 10).Value
         
     End If
-     
-    Next i
+    
+    
     
     'set last row for summary table
     Final_Row = ws.Cells(ws.Rows.Count, 11).End(xlUp).Row
@@ -165,6 +164,23 @@ Sub stock_results()
     End If
     
     Next j
+    
+    'find matching ticker symbols for Max Percentage, Min Percentage and Max Volume
+        If ws.Cells(i, 12).Value = Range("R2").Value Then
+        ws.Range("Q2").Value = ws.Cells(i, 10).Value
+        
+    End If
+    
+        If ws.Cells(i, 12).Value = Range("R3").Value Then
+        ws.Range("Q3").Value = ws.Cells(i, 10).Value
+        
+    End If
+        
+        If ws.Cells(i, 13).Value = Range("R4").Value Then
+        ws.Range("Q4").Value = ws.Cells(i, 10).Value
+        
+    End If
+    
     
     'move to next worksheet
     Next ws
