@@ -120,24 +120,7 @@ Sub stock_results()
         'Set formatting to show two decimal places and %
         ws.Range("R2:R3").NumberFormat = "0.00%"
         
-        'find matching ticker symbols for Max Percentage, Min Percentage and Max Volume
-        If ws.Cells(i, 12).Value = Increase Then
-        ws.Range("Q2").Value = ws.Cells(i, 10).Value
-        
-    End If
-    
-        If ws.Cells(i, 12).Value = Decrease Then
-        ws.Range("Q3").Value = ws.Cells(i, 10).Value
-        
-    End If
-        
-        If ws.Cells(i, 13).Value = GTVolume Then
-        ws.Range("Q4").Value = ws.Cells(i, 10).Value
-        
-    End If
-    
-    
-    
+            
     'set last row for summary table
     Final_Row = ws.Cells(ws.Rows.Count, 11).End(xlUp).Row
     
