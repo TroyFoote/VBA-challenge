@@ -109,64 +109,66 @@ Sub stock_results()
         ws.Range("L" & Summary_Table_Row).NumberFormat = "0.00%"
         
         'set figures for Max Percentage, Min Percentage and Max Volume
-        Increase = WorksheetFunction.Max(ws.Range("L:L"))
-        Decrease = WorksheetFunction.Min(ws.Range("L:L"))
-        GTVolume = WorksheetFunction.Max(ws.Range("M:M"))
+        MaxPerc = WorksheetFunction.Max(ws.Range("L:L"))
+        MinPerc = WorksheetFunction.Min(ws.Range("L:L"))
+        MaxVolume = WorksheetFunction.Max(ws.Range("M:M"))
         
-        ws.Range("R2") = Increase
-        ws.Range("R3") = Decrease
-        ws.Range("R4") = GTVolume
+        ws.Range("R2") = MaxPerc
+        ws.Range("R3") = MinPerc
+        ws.Range("R4") = MaxVolume
         
         'Set formatting to show two decimal places and %
         ws.Range("R2:R3").NumberFormat = "0.00%"
-        
             
     'set last row for summary table
     Final_Row = ws.Cells(ws.Rows.Count, 11).End(xlUp).Row
     
-      For j = 2 To Final_Row
+      For J = 2 To Final_Row
       
-        'set conditional formatting to yearly change column
-        If ws.Cells(j, 11).Value > 0 Then
-        ws.Cells(j, 11).Interior.ColorIndex = 4
+        'set conditional formatting to yearly change column (Column K)
+        If ws.Cells(J, 11).Value > 0 Then
+        ws.Cells(J, 11).Interior.ColorIndex = 4
                 
         Else
         
-        ws.Cells(j, 11).Interior.ColorIndex = 3
+        ws.Cells(J, 11).Interior.ColorIndex = 3
            
     End If
     
-        'set conditional formatting to percent change column
-        If ws.Cells(j, 12).Value > 0 Then
-        ws.Cells(j, 12).Interior.ColorIndex = 4
+        'set conditional formatting to percent change column (Column L)
+        If ws.Cells(J, 12).Value > 0 Then
+        ws.Cells(J, 12).Interior.ColorIndex = 4
                 
         Else
         
-        ws.Cells(j, 12).Interior.ColorIndex = 3
+        ws.Cells(J, 12).Interior.ColorIndex = 3
            
     End If
-    
-    Next j
-    
-    'find matching ticker symbols for Max Percentage, Min Percentage and Max Volume
-        If ws.Cells(i, 12).Value = Range("R2").Value Then
-        ws.Range("Q2").Value = ws.Cells(i, 10).Value
+           
+        'find matching ticker symbols for Max Percentage, Min Percentage and Max Volume
+        If ws.Cells(J, 12).Value = MaxPerc Then
+        ws.Range("Q2").Value = ws.Cells(J, 10).Value
+        
         
     End If
     
-        If ws.Cells(i, 12).Value = Range("R3").Value Then
-        ws.Range("Q3").Value = ws.Cells(i, 10).Value
+        If ws.Cells(J, 12).Value = MinPerc Then
+        ws.Range("Q3").Value = ws.Cells(J, 10).Value
         
     End If
         
-        If ws.Cells(i, 13).Value = Range("R4").Value Then
-        ws.Range("Q4").Value = ws.Cells(i, 10).Value
+        If ws.Cells(J, 13).Value = MaxVolume Then
+        ws.Range("Q4").Value = ws.Cells(J, 10).Value
         
     End If
+    
+    Next J
+                       
+    'adjust column widths
+    ws.Columns("J:R").AutoFit
     
     
     'move to next worksheet
     Next ws
   
 End Sub
-
